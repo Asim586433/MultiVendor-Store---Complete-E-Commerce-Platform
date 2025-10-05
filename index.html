@@ -1,0 +1,2324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultiVendor Store - Complete E-Commerce Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --gray: #95a5a6;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        /* Auth Forms */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 40px 0;
+        }
+
+        .auth-box {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--gray);
+            border-bottom: 3px solid transparent;
+        }
+
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .role-option {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .role-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            width: 250px;
+            background: var(--secondary);
+            color: white;
+            padding: 30px 0;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 15px 30px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .sidebar-menu i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dashboard-content {
+            flex: 1;
+            padding: 30px;
+            background: #f5f7fa;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 200px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-content {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .product-vendor {
+            color: var(--gray);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .product-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--gray);
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .table th, .table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status.active {
+            background: #e7f7ef;
+            color: var(--success);
+        }
+
+        .status.pending {
+            background: #fef5e7;
+            color: var(--warning);
+        }
+
+        .status.inactive {
+            background: #fde8e6;
+            color: var(--danger);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            border: none;
+        }
+
+        /* Cart */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.3s;
+            z-index: 1000;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .cart-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-vendor {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-price {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .cart-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* Section */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bbb;
+            font-size: 14px;
+        }
+
+        /* Checkout Page */
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            padding: 40px 0;
+        }
+
+        .checkout-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .checkout-summary {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+
+        /* Product Detail Page */
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px 0;
+        }
+
+        .product-image-large {
+            width: 100%;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+        }
+
+        .product-info {
+            padding: 20px 0;
+        }
+
+        .product-info h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .product-info .price {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .product-description {
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* Vendor Store Page */
+        .vendor-header {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .vendor-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .vendor-info h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .vendor-info p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+
+            .nav-links {
+                margin: 20px 0;
+            }
+
+            .nav-links li {
+                margin: 0 10px;
+            }
+
+            .dashboard {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .vendor-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo" id="homeLink">
+                    <i class="fas fa-store"></i>
+                    MultiVendor Store
+                </a>
+                <ul class="nav-links" id="navLinks">
+                    <!-- Navigation links will be populated based on user role -->
+                </ul>
+                <div class="user-actions" id="userActions">
+                    <!-- User actions will be populated based on login status -->
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="mainContent">
+        <!-- Content will be dynamically loaded here -->
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="btn btn-outline" id="closeCart">Close</button>
+        </div>
+        <div id="cartItems">
+            <!-- Cart items will be populated here -->
+        </div>
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="cartTotal">€0.00</span>
+        </div>
+        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" id="checkoutBtn">Proceed to Checkout</button>
+    </div>
+
+    <!-- Overlay for cart -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MultiVendor Store</h3>
+                    <p>Your one-stop marketplace for all your needs. Connect with multiple vendors and find the best products.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" id="footerHomeLink">Home</a></li>
+                        <li><a href="#" id="footerProductsLink">Products</a></li>
+                        <li><a href="#" id="footerVendorsLink">Vendors</a></li>
+                        <li><a href="#" id="footerAboutLink">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" id="footerHelpLink">Help Center</a></li>
+                        <li><a href="#" id="footerContactLink">Contact Us</a></li>
+                        <li><a href="#" id="footerPrivacyLink">Privacy Policy</a></li>
+                        <li><a href="#" id="footerTermsLink">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Market Street, City, Country</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@multivendorstore.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 MultiVendor Store. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Application State
+        const state = {
+            currentUser: null,
+            users: [
+                { id: 1, username: 'superadmin', password: 'admin123', role: 'superadmin', name: 'Super Admin', email: 'admin@multivendor.com' },
+                { id: 2, username: 'vendor1', password: 'vendor123', role: 'vendor', name: 'Tech Gadgets Inc.', email: 'contact@techgadgets.com', products: [1, 2, 5], avatar: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80' },
+                { id: 3, username: 'vendor2', password: 'vendor123', role: 'vendor', name: 'Fashion House', email: 'info@fashionhouse.com', products: [3, 4, 6], avatar: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80' },
+                { id: 4, username: 'consumer1', password: 'consumer123', role: 'consumer', name: 'John Doe', email: 'john.doe@example.com', cart: [] },
+                { id: 5, username: 'consumer2', password: 'consumer123', role: 'consumer', name: 'Jane Smith', email: 'jane.smith@example.com', cart: [] }
+            ],
+            products: [
+                { id: 1, name: 'Wireless Bluetooth Headphones', price: 79.99, vendor: 'Tech Gadgets Inc.', vendorId: 2, image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', category: 'Electronics', stock: 50, description: 'High-quality wireless headphones with noise cancellation. Perfect for music lovers and professionals who need focus.' },
+                { id: 2, name: 'Smartphone Stand', price: 24.99, vendor: 'Tech Gadgets Inc.', vendorId: 2, image: 'https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', category: 'Electronics', stock: 100, description: 'Adjustable smartphone stand for desk use. Compatible with all smartphone models.' },
+                { id: 3, name: 'Casual Summer Dress', price: 45.99, vendor: 'Fashion House', vendorId: 3, image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', category: 'Clothing', stock: 30, description: 'Light and comfortable summer dress in various colors. Made from breathable cotton material.' },
+                { id: 4, name: 'Leather Handbag', price: 89.99, vendor: 'Fashion House', vendorId: 3, image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', category: 'Accessories', stock: 25, description: 'Genuine leather handbag with multiple compartments. Stylish and practical for everyday use.' },
+                { id: 5, name: 'Fitness Tracker', price: 59.99, vendor: 'Tech Gadgets Inc.', vendorId: 2, image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', category: 'Electronics', stock: 75, description: 'Track your steps, heart rate, and sleep patterns. Water-resistant and with 7-day battery life.' },
+                { id: 6, name: 'Cotton T-Shirt', price: 19.99, vendor: 'Fashion House', vendorId: 3, image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', category: 'Clothing', stock: 120, description: 'Comfortable cotton t-shirt available in multiple sizes. Perfect for casual wear or workouts.' },
+                { id: 7, name: 'Laptop Backpack', price: 49.99, vendor: 'Tech Gadgets Inc.', vendorId: 2, image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', category: 'Accessories', stock: 40, description: 'Durable laptop backpack with padded compartment for up to 15.6" laptops. Multiple pockets for organization.' },
+                { id: 8, name: 'Running Shoes', price: 89.99, vendor: 'Fashion House', vendorId: 3, image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', category: 'Footwear', stock: 60, description: 'Lightweight running shoes with cushioned soles for maximum comfort during workouts or daily use.' }
+            ],
+            orders: [
+                { id: 1001, customer: 'John Doe', customerId: 4, products: [1, 3], total: 125.98, status: 'completed', date: '2023-10-01', shippingAddress: '123 Main St, City, Country' },
+                { id: 1002, customer: 'Jane Smith', customerId: 5, products: [2, 4], total: 114.98, status: 'pending', date: '2023-10-05', shippingAddress: '456 Oak Ave, City, Country' },
+                { id: 1003, customer: 'John Doe', customerId: 4, products: [5], total: 59.99, status: 'shipped', date: '2023-10-10', shippingAddress: '123 Main St, City, Country' }
+            ],
+            vendors: [
+                { id: 2, name: 'Tech Gadgets Inc.', email: 'contact@techgadgets.com', status: 'active', joinDate: '2023-01-15', description: 'Your one-stop shop for the latest tech gadgets and accessories.' },
+                { id: 3, name: 'Fashion House', email: 'info@fashionhouse.com', status: 'active', joinDate: '2023-02-20', description: 'Trendy fashion for every occasion. Quality clothing and accessories.' }
+            ]
+        };
+
+        // DOM Elements
+        const mainContent = document.getElementById('mainContent');
+        const navLinks = document.getElementById('navLinks');
+        const userActions = document.getElementById('userActions');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const overlay = document.getElementById('overlay');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const homeLink = document.getElementById('homeLink');
+
+        // Initialize the application
+        function init() {
+            // Check if user is logged in
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                state.currentUser = JSON.parse(savedUser);
+                loadHomePage();
+            } else {
+                loadAuthPage();
+            }
+
+            // Event listeners
+            closeCart.addEventListener('click', closeCartSidebar);
+            overlay.addEventListener('click', closeCartSidebar);
+            checkoutBtn.addEventListener('click', loadCheckoutPage);
+            homeLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                loadHomePage();
+            });
+
+            // Footer links
+            document.getElementById('footerHomeLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                loadHomePage();
+            });
+            document.getElementById('footerProductsLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (state.currentUser && state.currentUser.role === 'consumer') {
+                    loadConsumerDashboard();
+                } else {
+                    loadHomePage();
+                }
+            });
+            document.getElementById('footerVendorsLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                loadVendorsPage();
+            });
+        }
+
+        // Authentication Functions
+        function loadAuthPage() {
+            mainContent.innerHTML = `
+                <div class="auth-container">
+                    <div class="auth-box">
+                        <div class="auth-tabs">
+                            <div class="auth-tab active" data-tab="login">Login</div>
+                            <div class="auth-tab" data-tab="register">Register</div>
+                        </div>
+                        
+                        <div class="auth-form active" id="loginForm">
+                            <div class="form-group">
+                                <label for="loginUsername">Username</label>
+                                <input type="text" id="loginUsername" class="form-control" placeholder="Enter your username">
+                            </div>
+                            <div class="form-group">
+                                <label for="loginPassword">Password</label>
+                                <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password">
+                            </div>
+                            <button class="btn btn-primary" style="width: 100%;" id="loginButton">Login</button>
+                            
+                            <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+                                <p style="margin-bottom: 10px; font-weight: 600;">Demo Accounts:</p>
+                                <p><strong>Superadmin:</strong> superadmin / admin123</p>
+                                <p><strong>Vendor:</strong> vendor1 / vendor123</p>
+                                <p><strong>Consumer:</strong> consumer1 / consumer123</p>
+                            </div>
+                        </div>
+                        
+                        <div class="auth-form" id="registerForm">
+                            <div class="form-group">
+                                <label for="registerName">Full Name</label>
+                                <input type="text" id="registerName" class="form-control" placeholder="Enter your full name">
+                            </div>
+                            <div class="form-group">
+                                <label for="registerUsername">Username</label>
+                                <input type="text" id="registerUsername" class="form-control" placeholder="Choose a username">
+                            </div>
+                            <div class="form-group">
+                                <label for="registerEmail">Email</label>
+                                <input type="email" id="registerEmail" class="form-control" placeholder="Enter your email">
+                            </div>
+                            <div class="form-group">
+                                <label for="registerPassword">Password</label>
+                                <input type="password" id="registerPassword" class="form-control" placeholder="Choose a password">
+                            </div>
+                            <div class="form-group">
+                                <label>Register as:</label>
+                                <div class="role-selector">
+                                    <div class="role-option" data-role="consumer">Consumer</div>
+                                    <div class="role-option" data-role="vendor">Vendor</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" style="width: 100%;" id="registerButton">Register</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add event listeners for auth tabs
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    document.getElementById(`${this.dataset.tab}Form`).classList.add('active');
+                });
+            });
+
+            // Add event listeners for role selection
+            document.querySelectorAll('.role-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.role-option').forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+
+            // Add event listeners for login/register buttons
+            document.getElementById('loginButton').addEventListener('click', handleLogin);
+            document.getElementById('registerButton').addEventListener('click', handleRegister);
+        }
+
+        function handleLogin() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const user = state.users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                state.currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                loadHomePage();
+            } else {
+                alert('Invalid username or password');
+            }
+        }
+
+        function handleRegister() {
+            const name = document.getElementById('registerName').value;
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const roleElement = document.querySelector('.role-option.selected');
+            
+            if (!name || !username || !email || !password || !roleElement) {
+                alert('Please fill all fields and select a role');
+                return;
+            }
+
+            // Check if username already exists
+            if (state.users.find(u => u.username === username)) {
+                alert('Username already exists. Please choose a different one.');
+                return;
+            }
+
+            const role = roleElement.dataset.role;
+            const newUser = {
+                id: state.users.length + 1,
+                username,
+                password,
+                role,
+                name,
+                email,
+                cart: []
+            };
+
+            state.users.push(newUser);
+            state.currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            
+            if (role === 'vendor') {
+                // Add to vendors list
+                state.vendors.push({
+                    id: newUser.id,
+                    name: newUser.name,
+                    email: newUser.email,
+                    status: 'pending',
+                    joinDate: new Date().toISOString().split('T')[0],
+                    description: 'New vendor on our platform.'
+                });
+            }
+            
+            loadHomePage();
+        }
+
+        function logout() {
+            state.currentUser = null;
+            localStorage.removeItem('currentUser');
+            loadAuthPage();
+        }
+
+        // Navigation Functions
+        function updateNavigation() {
+            // Clear existing navigation
+            navLinks.innerHTML = '';
+            userActions.innerHTML = '';
+
+            // Common navigation items
+            if (state.currentUser) {
+                const homeLink = document.createElement('li');
+                homeLink.innerHTML = '<a href="#" id="navHomeLink">Home</a>';
+                navLinks.appendChild(homeLink);
+                
+                homeLink.querySelector('a').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    loadHomePage();
+                });
+
+                if (state.currentUser.role === 'consumer') {
+                    const productsLink = document.createElement('li');
+                    productsLink.innerHTML = '<a href="#" id="productsLink">Products</a>';
+                    navLinks.appendChild(productsLink);
+                    
+                    productsLink.querySelector('a').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        loadConsumerDashboard();
+                    });
+
+                    const vendorsLink = document.createElement('li');
+                    vendorsLink.innerHTML = '<a href="#" id="vendorsLink">Vendors</a>';
+                    navLinks.appendChild(vendorsLink);
+                    
+                    vendorsLink.querySelector('a').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        loadVendorsPage();
+                    });
+
+                    const cartButton = document.createElement('button');
+                    cartButton.className = 'btn btn-outline';
+                    cartButton.innerHTML = '<i class="fas fa-shopping-cart"></i> Cart';
+                    cartButton.addEventListener('click', openCartSidebar);
+                    userActions.appendChild(cartButton);
+                }
+            }
+
+            // User-specific navigation
+            if (state.currentUser.role === 'superadmin') {
+                const dashboardLink = document.createElement('li');
+                dashboardLink.innerHTML = '<a href="#" id="dashboardLink">Dashboard</a>';
+                navLinks.appendChild(dashboardLink);
+                
+                dashboardLink.querySelector('a').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    loadSuperadminDashboard();
+                });
+
+                const vendorsLink = document.createElement('li');
+                vendorsLink.innerHTML = '<a href="#" id="vendorsLink">Vendors</a>';
+                navLinks.appendChild(vendorsLink);
+                
+                vendorsLink.querySelector('a').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    loadVendorsManagement();
+                });
+
+                const usersLink = document.createElement('li');
+                usersLink.innerHTML = '<a href="#" id="usersLink">Users</a>';
+                navLinks.appendChild(usersLink);
+                
+                usersLink.querySelector('a').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    loadUsersManagement();
+                });
+            }
+
+            if (state.currentUser.role === 'vendor') {
+                const dashboardLink = document.createElement('li');
+                dashboardLink.innerHTML = '<a href="#" id="dashboardLink">Dashboard</a>';
+                navLinks.appendChild(dashboardLink);
+                
+                dashboardLink.querySelector('a').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    loadVendorDashboard();
+                });
+
+                const productsLink = document.createElement('li');
+                productsLink.innerHTML = '<a href="#" id="vendorProductsLink">My Products</a>';
+                navLinks.appendChild(productsLink);
+                
+                productsLink.querySelector('a').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    loadVendorProducts();
+                });
+
+                const ordersLink = document.createElement('li');
+                ordersLink.innerHTML = '<a href="#" id="vendorOrdersLink">Orders</a>';
+                navLinks.appendChild(ordersLink);
+                
+                ordersLink.querySelector('a').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    loadVendorOrders();
+                });
+            }
+
+            // User info and logout
+            if (state.currentUser) {
+                const userInfo = document.createElement('span');
+                userInfo.style.marginRight = '15px';
+                userInfo.textContent = `Hello, ${state.currentUser.name}`;
+                userActions.appendChild(userInfo);
+
+                const logoutButton = document.createElement('button');
+                logoutButton.className = 'btn btn-outline';
+                logoutButton.textContent = 'Logout';
+                logoutButton.addEventListener('click', logout);
+                userActions.appendChild(logoutButton);
+            } else {
+                const loginButton = document.createElement('button');
+                loginButton.className = 'btn btn-outline';
+                loginButton.textContent = 'Login';
+                loginButton.addEventListener('click', loadAuthPage);
+                userActions.appendChild(loginButton);
+
+                const signupButton = document.createElement('button');
+                signupButton.className = 'btn btn-primary';
+                signupButton.textContent = 'Sign Up';
+                signupButton.addEventListener('click', loadAuthPage);
+                userActions.appendChild(signupButton);
+            }
+        }
+
+        // Page Loading Functions
+        function loadHomePage() {
+            updateNavigation();
+            
+            mainContent.innerHTML = `
+                <section class="hero">
+                    <div class="container">
+                        <h1>Welcome to MultiVendor Store</h1>
+                        <p>Your one-stop marketplace for all your needs. Connect with multiple vendors and find the best products.</p>
+                        ${!state.currentUser ? `
+                            <div style="margin-top: 30px;">
+                                <button class="btn btn-primary btn-lg" id="heroSignupBtn" style="margin-right: 15px;">Get Started</button>
+                                <button class="btn btn-outline btn-lg" id="heroLoginBtn">Learn More</button>
+                            </div>
+                        ` : ''}
+                    </div>
+                </section>
+
+                <section class="section">
+                    <div class="container">
+                        <div class="section-title">
+                            <h2>Featured Products</h2>
+                            <p>Discover amazing products from our trusted vendors</p>
+                        </div>
+                        <div class="products-grid">
+                            ${state.products.slice(0, 6).map(product => `
+                                <div class="product-card">
+                                    <div class="product-image" style="background-image: url('${product.image}')"></div>
+                                    <div class="product-content">
+                                        <h3 class="product-title">${product.name}</h3>
+                                        <div class="product-vendor">
+                                            <i class="fas fa-store"></i> ${product.vendor}
+                                        </div>
+                                        <div class="product-price">€${product.price}</div>
+                                        <div class="product-meta">
+                                            <span><i class="fas fa-box"></i> ${product.stock} in stock</span>
+                                            <span><i class="fas fa-tag"></i> ${product.category}</span>
+                                        </div>
+                                        ${state.currentUser && state.currentUser.role === 'consumer' ? `
+                                            <button class="btn btn-primary btn-add-to-cart" data-id="${product.id}">Add to Cart</button>
+                                            <button class="btn btn-outline btn-view-details" data-id="${product.id}" style="margin-top: 10px; width: 100%;">View Details</button>
+                                        ` : `
+                                            <button class="btn btn-outline btn-view-details" data-id="${product.id}" style="width: 100%;">View Details</button>
+                                        `}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        ${state.currentUser && state.currentUser.role === 'consumer' ? `
+                            <div style="text-align: center; margin-top: 40px;">
+                                <button class="btn btn-primary" id="viewAllProductsBtn">View All Products</button>
+                            </div>
+                        ` : ''}
+                    </div>
+                </section>
+
+                <section class="section" style="background: #f8f9fa;">
+                    <div class="container">
+                        <div class="section-title">
+                            <h2>Our Vendors</h2>
+                            <p>Shop from trusted vendors on our platform</p>
+                        </div>
+                        <div class="products-grid">
+                            ${state.vendors.map(vendor => `
+                                <div class="product-card">
+                                    <div class="product-image" style="background-image: url('${vendor.avatar || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'}')"></div>
+                                    <div class="product-content">
+                                        <h3 class="product-title">${vendor.name}</h3>
+                                        <div class="product-vendor">
+                                            <i class="fas fa-envelope"></i> ${vendor.email}
+                                        </div>
+                                        <div class="product-price">Since ${vendor.joinDate}</div>
+                                        <div class="product-meta">
+                                            <span><i class="fas fa-box"></i> ${state.products.filter(p => p.vendorId === vendor.id).length} products</span>
+                                            <span><i class="fas fa-tag"></i> ${vendor.status}</span>
+                                        </div>
+                                        <button class="btn btn-outline btn-view-vendor" data-id="${vendor.id}" style="width: 100%;">Visit Store</button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            // Add event listeners
+            if (!state.currentUser) {
+                document.getElementById('heroSignupBtn').addEventListener('click', loadAuthPage);
+                document.getElementById('heroLoginBtn').addEventListener('click', loadAuthPage);
+            }
+
+            if (state.currentUser && state.currentUser.role === 'consumer') {
+                document.getElementById('viewAllProductsBtn').addEventListener('click', loadConsumerDashboard);
+            }
+
+            document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = parseInt(this.dataset.id);
+                    addToCart(productId);
+                });
+            });
+
+            document.querySelectorAll('.btn-view-details').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = parseInt(this.dataset.id);
+                    loadProductDetail(productId);
+                });
+            });
+
+            document.querySelectorAll('.btn-view-vendor').forEach(button => {
+                button.addEventListener('click', function() {
+                    const vendorId = parseInt(this.dataset.id);
+                    loadVendorStore(vendorId);
+                });
+            });
+        }
+
+        // Product Detail Page
+        function loadProductDetail(productId) {
+            const product = state.products.find(p => p.id === productId);
+            if (!product) return;
+
+            updateNavigation();
+            
+            mainContent.innerHTML = `
+                <div class="container">
+                    <div class="product-detail">
+                        <div class="product-image-large" style="background-image: url('${product.image}')"></div>
+                        <div class="product-info">
+                            <h1>${product.name}</h1>
+                            <div class="price">€${product.price}</div>
+                            <div class="product-vendor">
+                                <i class="fas fa-store"></i> Sold by: <a href="#" class="vendor-link" data-id="${product.vendorId}">${product.vendor}</a>
+                            </div>
+                            <div class="product-meta">
+                                <span><i class="fas fa-box"></i> ${product.stock} in stock</span>
+                                <span><i class="fas fa-tag"></i> ${product.category}</span>
+                            </div>
+                            <div class="product-description">
+                                <p>${product.description}</p>
+                            </div>
+                            ${state.currentUser && state.currentUser.role === 'consumer' ? `
+                                <div class="action-buttons" style="margin-top: 30px;">
+                                    <button class="btn btn-primary btn-lg btn-add-to-cart-detail" data-id="${product.id}">Add to Cart</button>
+                                    <button class="btn btn-outline btn-lg" style="margin-left: 15px;">Buy Now</button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add event listeners
+            if (state.currentUser && state.currentUser.role === 'consumer') {
+                document.querySelector('.btn-add-to-cart-detail').addEventListener('click', function() {
+                    addToCart(productId);
+                });
+            }
+
+            document.querySelector('.vendor-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                loadVendorStore(product.vendorId);
+            });
+        }
+
+        // Vendor Store Page
+        function loadVendorStore(vendorId) {
+            const vendor = state.vendors.find(v => v.id === vendorId);
+            const vendorProducts = state.products.filter(p => p.vendorId === vendorId);
+
+            if (!vendor) return;
+
+            updateNavigation();
+            
+            mainContent.innerHTML = `
+                <div class="container">
+                    <div class="vendor-header">
+                        <div class="vendor-avatar" style="background-image: url('${vendor.avatar || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80'}')"></div>
+                        <div class="vendor-info">
+                            <h1>${vendor.name}</h1>
+                            <p>${vendor.description}</p>
+                            <div class="vendor-meta">
+                                <span><i class="fas fa-envelope"></i> ${vendor.email}</span>
+                                <span style="margin-left: 20px;"><i class="fas fa-calendar"></i> Member since ${vendor.joinDate}</span>
+                                <span style="margin-left: 20px;"><i class="fas fa-box"></i> ${vendorProducts.length} products</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">
+                            <h2>Products by ${vendor.name}</h2>
+                        </div>
+                        <div class="products-grid">
+                            ${vendorProducts.map(product => `
+                                <div class="product-card">
+                                    <div class="product-image" style="background-image: url('${product.image}')"></div>
+                                    <div class="product-content">
+                                        <h3 class="product-title">${product.name}</h3>
+                                        <div class="product-price">€${product.price}</div>
+                                        <div class="product-meta">
+                                            <span><i class="fas fa-box"></i> ${product.stock} in stock</span>
+                                            <span><i class="fas fa-tag"></i> ${product.category}</span>
+                                        </div>
+                                        ${state.currentUser && state.currentUser.role === 'consumer' ? `
+                                            <button class="btn btn-primary btn-add-to-cart" data-id="${product.id}">Add to Cart</button>
+                                            <button class="btn btn-outline btn-view-details" data-id="${product.id}" style="margin-top: 10px; width: 100%;">View Details</button>
+                                        ` : `
+                                            <button class="btn btn-outline btn-view-details" data-id="${product.id}" style="width: 100%;">View Details</button>
+                                        `}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add event listeners
+            document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = parseInt(this.dataset.id);
+                    addToCart(productId);
+                });
+            });
+
+            document.querySelectorAll('.btn-view-details').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = parseInt(this.dataset.id);
+                    loadProductDetail(productId);
+                });
+            });
+        }
+
+        // Vendors Page
+        function loadVendorsPage() {
+            updateNavigation();
+            
+            mainContent.innerHTML = `
+                <section class="section">
+                    <div class="container">
+                        <div class="section-title">
+                            <h2>Our Vendors</h2>
+                            <p>Shop from trusted vendors on our platform</p>
+                        </div>
+                        <div class="products-grid">
+                            ${state.vendors.map(vendor => `
+                                <div class="product-card">
+                                    <div class="product-image" style="background-image: url('${vendor.avatar || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'}')"></div>
+                                    <div class="product-content">
+                                        <h3 class="product-title">${vendor.name}</h3>
+                                        <div class="product-vendor">
+                                            <i class="fas fa-envelope"></i> ${vendor.email}
+                                        </div>
+                                        <div class="product-price">Since ${vendor.joinDate}</div>
+                                        <div class="product-meta">
+                                            <span><i class="fas fa-box"></i> ${state.products.filter(p => p.vendorId === vendor.id).length} products</span>
+                                            <span><i class="fas fa-tag"></i> ${vendor.status}</span>
+                                        </div>
+                                        <button class="btn btn-outline btn-view-vendor" data-id="${vendor.id}" style="width: 100%;">Visit Store</button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            // Add event listeners
+            document.querySelectorAll('.btn-view-vendor').forEach(button => {
+                button.addEventListener('click', function() {
+                    const vendorId = parseInt(this.dataset.id);
+                    loadVendorStore(vendorId);
+                });
+            });
+        }
+
+        // Checkout Page
+        function loadCheckoutPage() {
+            const currentUser = state.currentUser;
+            if (!currentUser || !currentUser.cart || currentUser.cart.length === 0) {
+                alert('Your cart is empty');
+                return;
+            }
+
+            updateNavigation();
+            
+            let total = 0;
+            currentUser.cart.forEach(item => {
+                const product = state.products.find(p => p.id === item.productId);
+                if (product) {
+                    total += product.price * item.quantity;
+                }
+            });
+
+            mainContent.innerHTML = `
+                <div class="container">
+                    <h1 style="margin-bottom: 30px;">Checkout</h1>
+                    <div class="checkout-container">
+                        <div class="checkout-form">
+                            <h2 style="margin-bottom: 20px;">Shipping Information</h2>
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" id="fullName" class="form-control" value="${currentUser.name}">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" class="form-control" value="${currentUser.email}">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Shipping Address</label>
+                                <textarea id="address" class="form-control" rows="3">123 Main Street, City, Country</textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" class="form-control" value="New York">
+                                </div>
+                                <div class="form-group">
+                                    <label for="zipCode">ZIP Code</label>
+                                    <input type="text" id="zipCode" class="form-control" value="10001">
+                                </div>
+                            </div>
+                            
+                            <h2 style="margin: 30px 0 20px;">Payment Method</h2>
+                            <div class="form-group">
+                                <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                                    <div style="flex: 1; text-align: center; padding: 15px; border: 2px solid #ddd; border-radius: 5px; cursor: pointer;">
+                                        <i class="fab fa-cc-visa" style="font-size: 24px; color: #1a1f71;"></i>
+                                        <p style="margin-top: 5px;">Credit Card</p>
+                                    </div>
+                                    <div style="flex: 1; text-align: center; padding: 15px; border: 2px solid #ddd; border-radius: 5px; cursor: pointer;">
+                                        <i class="fab fa-paypal" style="font-size: 24px; color: #003087;"></i>
+                                        <p style="margin-top: 5px;">PayPal</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cardNumber">Card Number</label>
+                                <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="expiryDate">Expiry Date</label>
+                                    <input type="text" id="expiryDate" class="form-control" placeholder="MM/YY">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" class="form-control" placeholder="123">
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-primary btn-lg" style="width: 100%; margin-top: 20px;" id="placeOrderBtn">Place Order</button>
+                        </div>
+                        
+                        <div class="checkout-summary">
+                            <h2 style="margin-bottom: 20px;">Order Summary</h2>
+                            <div id="checkoutItems">
+                                ${currentUser.cart.map(item => {
+                                    const product = state.products.find(p => p.id === item.productId);
+                                    if (product) {
+                                        return `
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+                                                <div>
+                                                    <div style="font-weight: 600;">${product.name}</div>
+                                                    <div style="font-size: 14px; color: #666;">Qty: ${item.quantity}</div>
+                                                </div>
+                                                <div>€${(product.price * item.quantity).toFixed(2)}</div>
+                                            </div>
+                                        `;
+                                    }
+                                    return '';
+                                }).join('')}
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                                <div>Subtotal</div>
+                                <div>€${total.toFixed(2)}</div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                                <div>Shipping</div>
+                                <div>€5.00</div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 15px 0; font-size: 18px; font-weight: 600;">
+                                <div>Total</div>
+                                <div>€${(total + 5).toFixed(2)}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add event listener for place order button
+            document.getElementById('placeOrderBtn').addEventListener('click', function() {
+                // Create a new order
+                const newOrder = {
+                    id: state.orders.length + 1001,
+                    customer: currentUser.name,
+                    customerId: currentUser.id,
+                    products: currentUser.cart.map(item => item.productId),
+                    total: total + 5,
+                    status: 'pending',
+                    date: new Date().toISOString().split('T')[0],
+                    shippingAddress: document.getElementById('address').value
+                };
+                
+                state.orders.push(newOrder);
+                
+                // Clear the cart
+                currentUser.cart = [];
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                alert('Order placed successfully! Your order ID is #' + newOrder.id);
+                loadHomePage();
+                closeCartSidebar();
+            });
+        }
+
+        // Consumer Dashboard
+        function loadConsumerDashboard() {
+            updateNavigation();
+            
+            const userOrders = state.orders.filter(o => o.customerId === state.currentUser.id);
+            
+            mainContent.innerHTML = `
+                <section class="section">
+                    <div class="container">
+                        <div class="section-title">
+                            <h2>All Products</h2>
+                            <p>Browse our complete product catalog</p>
+                        </div>
+                        <div class="products-grid">
+                            ${state.products.map(product => `
+                                <div class="product-card">
+                                    <div class="product-image" style="background-image: url('${product.image}')"></div>
+                                    <div class="product-content">
+                                        <h3 class="product-title">${product.name}</h3>
+                                        <div class="product-vendor">
+                                            <i class="fas fa-store"></i> ${product.vendor}
+                                        </div>
+                                        <div class="product-price">€${product.price}</div>
+                                        <div class="product-meta">
+                                            <span><i class="fas fa-box"></i> ${product.stock} in stock</span>
+                                            <span><i class="fas fa-tag"></i> ${product.category}</span>
+                                        </div>
+                                        <button class="btn btn-primary btn-add-to-cart" data-id="${product.id}">Add to Cart</button>
+                                        <button class="btn btn-outline btn-view-details" data-id="${product.id}" style="margin-top: 10px; width: 100%;">View Details</button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+
+                ${userOrders.length > 0 ? `
+                    <section class="section" style="background: #f8f9fa;">
+                        <div class="container">
+                            <div class="section-title">
+                                <h2>My Orders</h2>
+                                <p>Track your recent purchases</p>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Date</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${userOrders.map(order => `
+                                        <tr>
+                                            <td>#${order.id}</td>
+                                            <td>${order.date}</td>
+                                            <td>€${order.total}</td>
+                                            <td><span class="status ${order.status}">${order.status}</span></td>
+                                            <td>
+                                                <button class="btn btn-outline btn-sm btn-view-order" data-id="${order.id}">View Details</button>
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                ` : ''}
+            `;
+
+            // Add event listeners
+            document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = parseInt(this.dataset.id);
+                    addToCart(productId);
+                });
+            });
+
+            document.querySelectorAll('.btn-view-details').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = parseInt(this.dataset.id);
+                    loadProductDetail(productId);
+                });
+            });
+
+            document.querySelectorAll('.btn-view-order').forEach(button => {
+                button.addEventListener('click', function() {
+                    const orderId = parseInt(this.dataset.id);
+                    // In a real app, this would show order details
+                    alert('Order details would be shown here for order #' + orderId);
+                });
+            });
+        }
+
+        // Superadmin Dashboard
+        function loadSuperadminDashboard() {
+            updateNavigation();
+            
+            mainContent.innerHTML = `
+                <div class="dashboard">
+                    <div class="sidebar">
+                        <ul class="sidebar-menu">
+                            <li><a href="#" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="#" id="saVendorsLink"><i class="fas fa-store"></i> Vendors</a></li>
+                            <li><a href="#" id="saUsersLink"><i class="fas fa-users"></i> Users</a></li>
+                            <li><a href="#" id="saProductsLink"><i class="fas fa-box-open"></i> Products</a></li>
+                            <li><a href="#" id="saOrdersLink"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                            <li><a href="#" id="saSettingsLink"><i class="fas fa-cog"></i> Settings</a></li>
+                        </ul>
+                    </div>
+                    <div class="dashboard-content">
+                        <div class="dashboard-header">
+                            <h2>Superadmin Dashboard</h2>
+                            <div class="user-info">
+                                <span>Welcome, ${state.currentUser.name}</span>
+                            </div>
+                        </div>
+
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value">${state.vendors.length}</div>
+                                <div class="stat-label">Total Vendors</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${state.users.filter(u => u.role === 'consumer').length}</div>
+                                <div class="stat-label">Consumers</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${state.products.length}</div>
+                                <div class="stat-label">Products</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${state.orders.length}</div>
+                                <div class="stat-label">Total Orders</div>
+                            </div>
+                        </div>
+
+                        <div class="tabs">
+                            <div class="tab active" data-tab="recentOrders">Recent Orders</div>
+                            <div class="tab" data-tab="pendingVendors">Pending Vendors</div>
+                        </div>
+
+                        <div class="tab-content active" id="recentOrders">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${state.orders.slice(0, 5).map(order => `
+                                        <tr>
+                                            <td>#${order.id}</td>
+                                            <td>${order.customer}</td>
+                                            <td>€${order.total}</td>
+                                            <td><span class="status ${order.status}">${order.status}</span></td>
+                                            <td>${order.date}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add event listeners for sidebar
+            document.getElementById('saVendorsLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                loadVendorsManagement();
+            });
+            
+            document.getElementById('saUsersLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                loadUsersManagement();
+            });
+        }
+
+        // Vendor Management (Superadmin)
+        function loadVendorsManagement() {
+            updateNavigation();
+            
+            mainContent.innerHTML = `
+                <div class="dashboard">
+                    <div class="sidebar">
+                        <ul class="sidebar-menu">
+                            <li><a href="#" id="saDashboardLink"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="#" class="active"><i class="fas fa-store"></i> Vendors</a></li>
+                            <li><a href="#" id="saUsersLink"><i class="fas fa-users"></i> Users</a></li>
+                            <li><a href="#" id="saProductsLink"><i class="fas fa-box-open"></i> Products</a></li>
+                            <li><a href="#" id="saOrdersLink"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                        </ul>
+                    </div>
+                    <div class="dashboard-content">
+                        <div class="dashboard-header">
+                            <h2>Vendor Management</h2>
+                            <button class="btn btn-primary" id="addVendorBtn">Add New Vendor</button>
+                        </div>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Vendor Name</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Join Date</th>
+                                    <th>Products</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${state.vendors.map(vendor => `
+                                    <tr>
+                                        <td>${vendor.name}</td>
+                                        <td>${vendor.email}</td>
+                                        <td><span class="status ${vendor.status}">${vendor.status}</span></td>
+                                        <td>${vendor.joinDate}</td>
+                                        <td>${state.products.filter(p => p.vendorId === vendor.id).length}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-primary btn-sm action-btn" data-id="${vendor.id}">Edit</button>
+                                            <button class="btn btn-danger btn-sm action-btn" data-id="${vendor.id}">Delete</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            // Add event listeners
+            document.getElementById('saDashboardLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                loadSuperadminDashboard();
+            });
+        }
+
+        // Users Management (Superadmin)
+        function loadUsersManagement() {
+            updateNavigation();
+            
+            mainContent.innerHTML = `
+                <div class="dashboard">
+                    <div class="sidebar">
+                        <ul class="sidebar-menu">
+                            <li><a href="#" id="saDashboardLink"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="#" id="saVendorsLink"><i class="fas fa-store"></i> Vendors</a></li>
+                            <li><a href="#" class="active"><i class="fas fa-users"></i> Users</a></li>
+                            <li><a href="#" id="saProductsLink"><i class="fas fa-box-open"></i> Products</a></li>
+                        </ul>
+                    </div>
+                    <div class="dashboard-content">
+                        <div class="dashboard-header">
+                            <h2>User Management</h2>
+                        </div>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${state.users.map(user => `
+                                    <tr>
+                                        <td>${user.id}</td>
+                                        <td>${user.name}</td>
+                                        <td>${user.username}</td>
+                                        <td>${user.email}</td>
+                                        <td>${user.role}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-primary btn-sm action-btn" data-id="${user.id}">Edit</button>
+                                            <button class="btn btn-danger btn-sm action-btn" data-id="${user.id}">Delete</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            // Add event listeners
+            document.getElementById('saDashboardLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                loadSuperadminDashboard();
+            });
+        }
+
+        // Vendor Dashboard
+        function loadVendorDashboard() {
+            updateNavigation();
+            
+            const vendorProducts = state.products.filter(p => p.vendorId === state.currentUser.id);
+            const vendorOrders = state.orders.filter(o => {
+                return o.products.some(pId => {
+                    const product = state.products.find(p => p.id === pId);
+                    return product && product.vendorId === state.currentUser.id;
+                });
+            });
+
+            mainContent.innerHTML = `
+                <div class="dashboard">
+                    <div class="sidebar">
+                        <ul class="sidebar-menu">
+                            <li><a href="#" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="#" id="vProductsLink"><i class="fas fa-box-open"></i> My Products</a></li>
+                            <li><a href="#" id="vOrdersLink"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                            <li><a href="#" id="vAnalyticsLink"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                        </ul>
+                    </div>
+                    <div class="dashboard-content">
+                        <div class="dashboard-header">
+                            <h2>Vendor Dashboard - ${state.currentUser.name}</h2>
+                            <div class="user-info">
+                                <span>Welcome back!</span>
+                            </div>
+                        </div>
+
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value">${vendorProducts.length}</div>
+                                <div class="stat-label">My Products</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${vendorOrders.length}</div>
+                                <div class="stat-label">Total Orders</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">€${vendorOrders.reduce((total, order) => total + order.total, 0)}</div>
+                                <div class="stat-label">Total Revenue</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">4.8</div>
+                                <div class="stat-label">Average Rating</div>
+                            </div>
+                        </div>
+
+                        <div class="tabs">
+                            <div class="tab active" data-tab="recentOrders">Recent Orders</div>
+                            <div class="tab" data-tab="lowStock">Low Stock</div>
+                        </div>
+
+                        <div class="tab-content active" id="recentOrders">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Products</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${vendorOrders.slice(0, 5).map(order => `
+                                        <tr>
+                                            <td>#${order.id}</td>
+                                            <td>${order.customer}</td>
+                                            <td>${order.products.length} items</td>
+                                            <td>€${order.total}</td>
+                                            <td><span class="status ${order.status}">${order.status}</span></td>
+                                            <td>${order.date}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add event listeners for sidebar
+            document.getElementById('vProductsLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                loadVendorProducts();
+            });
+            
+            document.getElementById('vOrdersLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                loadVendorOrders();
+            });
+        }
+
+        // Vendor Products Management
+        function loadVendorProducts() {
+            updateNavigation();
+            
+            const vendorProducts = state.products.filter(p => p.vendorId === state.currentUser.id);
+
+            mainContent.innerHTML = `
+                <div class="dashboard">
+                    <div class="sidebar">
+                        <ul class="sidebar-menu">
+                            <li><a href="#" id="vDashboardLink"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="#" class="active"><i class="fas fa-box-open"></i> My Products</a></li>
+                            <li><a href="#" id="vOrdersLink"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                        </ul>
+                    </div>
+                    <div class="dashboard-content">
+                        <div class="dashboard-header">
+                            <h2>My Products</h2>
+                            <button class="btn btn-primary" id="addProductBtn">Add New Product</button>
+                        </div>
+
+                        <div class="products-grid">
+                            ${vendorProducts.map(product => `
+                                <div class="product-card">
+                                    <div class="product-image" style="background-image: url('${product.image}')"></div>
+                                    <div class="product-content">
+                                        <h3 class="product-title">${product.name}</h3>
+                                        <div class="product-price">€${product.price}</div>
+                                        <div class="product-meta">
+                                            <span><i class="fas fa-box"></i> ${product.stock} in stock</span>
+                                            <span><i class="fas fa-tag"></i> ${product.category}</span>
+                                        </div>
+                                        <div class="action-buttons">
+                                            <button class="btn btn-primary btn-sm action-btn" data-id="${product.id}">Edit</button>
+                                            <button class="btn btn-danger btn-sm action-btn" data-id="${product.id}">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add event listeners
+            document.getElementById('vDashboardLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                loadVendorDashboard();
+            });
+        }
+
+        // Vendor Orders Management
+        function loadVendorOrders() {
+            updateNavigation();
+            
+            const vendorOrders = state.orders.filter(o => {
+                return o.products.some(pId => {
+                    const product = state.products.find(p => p.id === pId);
+                    return product && product.vendorId === state.currentUser.id;
+                });
+            });
+
+            mainContent.innerHTML = `
+                <div class="dashboard">
+                    <div class="sidebar">
+                        <ul class="sidebar-menu">
+                            <li><a href="#" id="vDashboardLink"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="#" id="vProductsLink"><i class="fas fa-box-open"></i> My Products</a></li>
+                            <li><a href="#" class="active"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                        </ul>
+                    </div>
+                    <div class="dashboard-content">
+                        <div class="dashboard-header">
+                            <h2>Order Management</h2>
+                        </div>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Products</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${vendorOrders.map(order => `
+                                    <tr>
+                                        <td>#${order.id}</td>
+                                        <td>${order.customer}</td>
+                                        <td>${order.products.length} items</td>
+                                        <td>€${order.total}</td>
+                                        <td><span class="status ${order.status}">${order.status}</span></td>
+                                        <td>${order.date}</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-primary btn-sm action-btn" data-id="${order.id}">View</button>
+                                            <button class="btn btn-success btn-sm action-btn" data-id="${order.id}">Fulfill</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            // Add event listeners
+            document.getElementById('vDashboardLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                loadVendorDashboard();
+            });
+        }
+
+        // Cart Functions
+        function addToCart(productId) {
+            const product = state.products.find(p => p.id === productId);
+            if (!product) return;
+
+            const currentUser = state.currentUser;
+            const existingItem = currentUser.cart.find(item => item.productId === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                currentUser.cart.push({
+                    productId: productId,
+                    quantity: 1
+                });
+            }
+
+            // Update localStorage
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            alert(`${product.name} added to cart!`);
+            updateCartDisplay();
+        }
+
+        function openCartSidebar() {
+            updateCartDisplay();
+            cartSidebar.classList.add('active');
+            overlay.classList.add('active');
+        }
+
+        function closeCartSidebar() {
+            cartSidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        function updateCartDisplay() {
+            const currentUser = state.currentUser;
+            if (!currentUser || !currentUser.cart) return;
+
+            let total = 0;
+            cartItems.innerHTML = '';
+
+            if (currentUser.cart.length === 0) {
+                cartItems.innerHTML = '<p>Your cart is empty</p>';
+                cartTotal.textContent = '€0.00';
+                return;
+            }
+
+            currentUser.cart.forEach(item => {
+                const product = state.products.find(p => p.id === item.productId);
+                if (product) {
+                    const itemTotal = product.price * item.quantity;
+                    total += itemTotal;
+
+                    const cartItemElement = document.createElement('div');
+                    cartItemElement.className = 'cart-item';
+                    cartItemElement.innerHTML = `
+                        <div class="cart-item-image" style="background-image: url('${product.image}')"></div>
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${product.name}</div>
+                            <div class="cart-item-vendor">${product.vendor}</div>
+                            <div class="cart-item-price">€${product.price} x ${item.quantity} = €${itemTotal.toFixed(2)}</div>
+                            <div class="cart-item-actions">
+                                <div class="quantity-control">
+                                    <div class="quantity-btn minus" data-id="${product.id}">-</div>
+                                    <span>${item.quantity}</span>
+                                    <div class="quantity-btn plus" data-id="${product.id}">+</div>
+                                </div>
+                                <button class="btn btn-danger btn-sm remove-btn" data-id="${product.id}">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                    cartItems.appendChild(cartItemElement);
+                }
+            });
+
+            cartTotal.textContent = `€${total.toFixed(2)}`;
+
+            // Add event listeners for quantity buttons
+            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    updateCartQuantity(parseInt(this.dataset.id), -1);
+                });
+            });
+
+            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    updateCartQuantity(parseInt(this.dataset.id), 1);
+                });
+            });
+
+            document.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    removeFromCart(parseInt(this.dataset.id));
+                });
+            });
+        }
+
+        function updateCartQuantity(productId, change) {
+            const currentUser = state.currentUser;
+            const cartItem = currentUser.cart.find(item => item.productId === productId);
+            
+            if (cartItem) {
+                cartItem.quantity += change;
+                
+                if (cartItem.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateCartDisplay();
+                }
+            }
+        }
+
+        function removeFromCart(productId) {
+            const currentUser = state.currentUser;
+            currentUser.cart = currentUser.cart.filter(item => item.productId !== productId);
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            updateCartDisplay();
+        }
+
+        // Initialize the application
+        init();
+    </script>
+</body>
+</html>
